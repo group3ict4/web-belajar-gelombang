@@ -57,7 +57,7 @@
 
   function updateAmpDisplay(){
     const amp = calcAmpFromFreq(Number(freqRange.value));
-    currentAmpEl.textContent = amp.toFixed(3);
+    currentAmpEl.textContent = amp.toFixed(3) + ' m';
   }
   updateAmpDisplay();
 
@@ -129,7 +129,7 @@
         <td>${i+1}</td>
         <td>${r.time}</td>
         <td>${r.freq}</td>
-        <td>${r.amp.toFixed(3)}</td>
+        <td>${r.amp.toFixed(3)} m</td>
         <td><button class="muted-btn" data-id="${r.id}">Hapus</button></td>
       `;
       obsTableBody.appendChild(tr);
@@ -176,6 +176,27 @@
     if(!analyser){
       // synthesize sample-only visualization if not playing (simulate sine)
       drawSimulatedSine();
+      // label amplitudo (meter)
+const A = calcAmpFromFreq(Number(freqRange.value));// garis +A dan -A (referensi meter)
+ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+ctx.setLineDash([5, 5]);
+
+ctx.beginPath();
+ctx.moveTo(0, mid - A * 120);
+ctx.lineTo(sinusCanvas.width, mid - A * 120);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.moveTo(0, mid + A * 120);
+ctx.lineTo(sinusCanvas.width, mid + A * 120);
+ctx.stroke();
+
+ctx.setLineDash([]);
+
+ctx.fillStyle = '#9bdcff';
+ctx.font = '12px Arial';
+ctx.fillText(`A = ${A.toFixed(3)} m`, 10, 18);
+
       rafId = requestAnimationFrame(animate);
       return;
     }
