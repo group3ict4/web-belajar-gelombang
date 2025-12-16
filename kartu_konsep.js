@@ -3,85 +3,133 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevBtn = document.getElementById("prevPage");
   const nextBtn = document.getElementById("nextPage");
   const pageInfo = document.getElementById("pageInfo");
+  const searchInput = document.getElementById("searchInput");
+  const topicFilter = document.getElementById("topicFilter");
+  const shuffleBtn = document.getElementById("shuffleBtn");
+  const resetBtn = document.getElementById("resetBtn");
 
   let voices = [];
   let currentPage = 1;
-  const cardsPerPage = 9; // 3x3 per halaman
+  const cardsPerPage = 9;
 
-  // === LOAD VOICES ===
+  /* ================= VOICE ================= */
   function loadVoices() {
-    voices = window.speechSynthesis.getVoices();
-    console.log("VOICES LOADED:", voices);
+    voices = speechSynthesis.getVoices();
   }
-
-  window.speechSynthesis.onvoiceschanged = loadVoices;
+  speechSynthesis.onvoiceschanged = loadVoices;
   loadVoices();
 
-  // === PICK INDONESIAN VOICE ===
   function pickVoice() {
-    if (!voices || voices.length === 0) return null;
-
     return (
       voices.find(v => v.lang === "id-ID") ||
       voices.find(v => v.lang.startsWith("id")) ||
-      voices.find(v => v.name.toLowerCase().includes("indonesia")) ||
-      voices.find(v => v.name.includes("Hani")) ||
       voices[0]
     );
   }
 
-  // === SPEAK FUNCTION ===
   function speak(text) {
     const utt = new SpeechSynthesisUtterance(text);
     utt.voice = pickVoice();
-    utt.rate = 1;
-    utt.pitch = 1;
-    
     speechSynthesis.cancel();
     speechSynthesis.speak(utt);
   }
 
-  // === DATA 30 KARTU ===
+  /* ================= DATA ================= */
   const cards = [
-    { title: "Gelombang Mekanik", desc: "Gelombang yang membutuhkan medium..." },
-    { title: "Gelombang Elektromagnetik", desc: "Gelombang yang dapat merambat tanpa medium..." },
-    { title: "Amplitudo", desc: "Simpangan maksimum dari posisi setimbang..." },
-    { title: "Frekuensi", desc: "Jumlah getaran setiap detik, dinyatakan dalam Hertz..." },
-    { title: "Periode", desc: "Waktu untuk satu gelombang lengkap..." },
-    { title: "Panjang Gelombang", desc: "Jarak antara dua puncak atau dua lembah berurutan..." },
-    { title: "Cepat Rambat", desc: "Kecepatan gelombang merambat di medium tertentu..." },
-    { title: "Resonansi", desc: "Terjadi ketika frekuensi sama sehingga amplitudo membesar..." },
-    { title: "Interferensi", desc: "Perpaduan dua gelombang yang menghasilkan pola baru..." },
-    { title: "Difraksi", desc: "Pembelokan gelombang ketika melewati celah sempit..." },
-    { title: "Refleksi", desc: "Pemantulan gelombang ketika mengenai penghalang..." },
-    { title: "Refraksi", desc: "Pembiasan gelombang saat pindah medium..." },
-    { title: "Intensitas Bunyi", desc: "Daya per satuan luas pada suatu titik..." },
-    { title: "Desibel (dB)", desc: "Satuan logaritmik untuk mengukur kuat bunyi..." },
-    { title: "Nada", desc: "Bunyi berfrekuensi teratur..." },
-    { title: "Desah", desc: "Bunyi tidak beraturan dan tidak memiliki frekuensi tunggal..." },
-    { title: "Kualitas Bunyi", desc: "Ciri khas bunyi yang membedakan sumber bunyi..." },
-    { title: "Gaung", desc: "Pantulan bunyi yang datang hampir bersamaan..." },
-    { title: "Gema", desc: "Pantulan bunyi yang terdengar terpisah dari bunyi asli..." },
-    { title: "Getaran", desc: "Gerak bolak balik di sekitar titik setimbang..." },
-    { title: "Sumber Bunyi", desc: "Setiap objek yang bergetar menghasilkan bunyi..." },
-    { title: "Medium Bunyi", desc: "Bunyi merambat melalui zat padat, cair, dan gas..." },
-    { title: "Kecepatan Bunyi", desc: "Tergantung medium, paling cepat di padat..." },
-    { title: "Efek Doppler", desc: "Perubahan frekuensi akibat gerak sumber atau pendengar..." },
-    { title: "Ultrasonik", desc: "Bunyi dengan frekuensi di atas 20.000 Hz..." },
-    { title: "Infrasonik", desc: "Bunyi dengan frekuensi di bawah 20 Hz..." },
-    { title: "Spektrum Frekuensi", desc: "Rentang frekuensi bunyi yang dapat dianalisis..." },
-    { title: "Intensitas Gelombang", desc: "Energi yang dibawa gelombang per satuan waktu..." },
-    { title: "Pola Stasioner", desc: "Gelombang berdiri ketika dua gelombang bertemu..." },
-    { title: "Puncak & Lembah", desc: "Bagian tertinggi dan terendah gelombang..." }
-  ];
 
-  // === RENDER KARTU ===
+/* =====================
+   GELOMBANG MEKANIK
+===================== */
+{ title: "Getaran", desc: "Gerak bolak-balik di sekitar titik seimbang.", topic: "mekanik" },
+
+{ title: "Gelombang Mekanik", desc: "Gelombang yang butuh medium, misalnya air dan udara.", topic: "mekanik" },
+
+{ title: "Gelombang Transversal", desc: "Getaran tegak lurus arah rambat, contohnya gelombang air.", topic: "mekanik" },
+
+{ title: "Gelombang Longitudinal", desc: "Getaran sejajar arah rambat, contohnya bunyi.", topic: "mekanik" },
+
+{ title: "Amplitudo", desc: "Simpangan paling jauh dari posisi seimbang.", topic: "mekanik" },
+
+{ title: "Frekuensi", desc: "Jumlah getaran tiap detik.", topic: "mekanik" },
+
+{ title: "Periode", desc: "Waktu yang dibutuhkan untuk satu getaran.", topic: "mekanik" },
+
+{ title: "Panjang Gelombang", desc: "Jarak antara dua puncak gelombang.", topic: "mekanik" },
+
+{ title: "Cepat Rambat Gelombang", desc: "Kecepatan gelombang merambat dalam medium.", topic: "mekanik" },
+
+{ title: "Interferensi", desc: "Gabungan dua gelombang yang saling bertemu.", topic: "mekanik" },
+
+{ title: "Difraksi", desc: "Pembelokan gelombang saat melewati celah sempit.", topic: "mekanik" },
+
+{ title: "Refleksi", desc: "Pemantulan gelombang saat mengenai penghalang.", topic: "mekanik" },
+
+{ title: "Refraksi", desc: "Perubahan arah gelombang saat pindah medium.", topic: "mekanik" },
+
+{ title: "Gelombang Stasioner", desc: "Gelombang diam dengan simpul dan perut.", topic: "mekanik" },
+
+/* =====================
+   GELOMBANG BUNYI
+===================== */
+{ title: "Bunyi", desc: "Getaran yang bisa didengar oleh telinga.", topic: "bunyi" },
+
+{ title: "Sumber Bunyi", desc: "Benda yang bergetar dan menghasilkan bunyi.", topic: "bunyi" },
+
+{ title: "Medium Bunyi", desc: "Bunyi merambat lewat padat, cair, dan gas.", topic: "bunyi" },
+
+{ title: "Cepat Rambat Bunyi", desc: "Bunyi paling cepat merambat di benda padat.", topic: "bunyi" },
+
+{ title: "Intensitas Bunyi", desc: "Kuat lemahnya bunyi yang terdengar.", topic: "bunyi" },
+
+{ title: "Taraf Intensitas", desc: "Ukuran kuat bunyi dalam satuan desibel.", topic: "bunyi" },
+
+{ title: "Desibel (dB)", desc: "Satuan untuk mengukur tingkat kebisingan.", topic: "bunyi" },
+
+{ title: "Nada", desc: "Bunyi dengan frekuensi teratur.", topic: "bunyi" },
+
+{ title: "Gema", desc: "Pantulan bunyi yang terdengar terpisah.", topic: "bunyi" },
+
+{ title: "Gaung", desc: "Pantulan bunyi yang datang hampir bersamaan.", topic: "bunyi" },
+
+{ title: "Resonansi", desc: "Getaran jadi besar karena frekuensinya sama.", topic: "bunyi" },
+
+{ title: "Efek Doppler", desc: "Bunyi terdengar berubah karena sumber bergerak.", topic: "bunyi" },
+
+{ title: "Ultrasonik", desc: "Bunyi dengan frekuensi di atas 20.000 Hz.", topic: "bunyi" },
+
+{ title: "Infrasonik", desc: "Bunyi dengan frekuensi di bawah 20 Hz.", topic: "bunyi" },
+
+/* =====================
+   KONSEP UMUM
+===================== */
+{ title: "Energi Gelombang", desc: "Energi yang dibawa oleh gelombang.", topic: "fisika" },
+
+{ title: "Puncak Gelombang", desc: "Bagian tertinggi dari gelombang.", topic: "fisika" },
+
+{ title: "Lembah Gelombang", desc: "Bagian terendah dari gelombang.", topic: "fisika" },
+
+{ title: "Rapatan", desc: "Bagian gelombang bunyi yang paling rapat.", topic: "fisika" },
+
+{ title: "Renggangan", desc: "Bagian gelombang bunyi yang paling renggang.", topic: "fisika" },
+
+{ title: "Spektrum Bunyi", desc: "Rentang frekuensi bunyi yang ada.", topic: "fisika" },
+
+{ title: "Resonator", desc: "Benda yang mudah beresonansi.", topic: "fisika" },
+
+{ title: "Hukum Gelombang", desc: "v = λ × f, hubungan cepat rambat gelombang.", topic: "fisika" }
+
+];
+
+
+  let visibleCards = [...cards];
+
+  /* ================= RENDER ================= */
   function renderCards() {
     grid.innerHTML = "";
 
-    let start = (currentPage - 1) * cardsPerPage;
-    let end = start + cardsPerPage;
-    const pageCards = cards.slice(start, end);
+    const start = (currentPage - 1) * cardsPerPage;
+    const end = start + cardsPerPage;
+    const pageCards = visibleCards.slice(start, end);
 
     pageCards.forEach(card => {
       const el = document.createElement("div");
@@ -89,24 +137,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       el.innerHTML = `
         <div class="card-inner">
-          <div class="card-front">
-            ${card.title}
-          </div>
-
+          <div class="card-front">${card.title}</div>
           <div class="card-back">
             <p>${card.desc}</p>
-            <button class="playBtn">🔊 Putar Suara</button>
+            <button class="playBtn">🔊 Putar</button>
           </div>
         </div>
       `;
 
-      // PLAY BUTTON
-      el.querySelector(".playBtn").addEventListener("click", (e) => {
+      el.querySelector(".playBtn").addEventListener("click", e => {
         e.stopPropagation();
         speak(`${card.title}. ${card.desc}`);
       });
 
-      // FLIP
       el.addEventListener("click", () => {
         el.classList.toggle("flipped");
       });
@@ -114,24 +157,67 @@ document.addEventListener("DOMContentLoaded", () => {
       grid.appendChild(el);
     });
 
-    pageInfo.textContent = `Halaman ${currentPage} / ${Math.ceil(cards.length / cardsPerPage)}`;
+    pageInfo.textContent = `Halaman ${currentPage} / ${Math.ceil(visibleCards.length / cardsPerPage)}`;
   }
 
-  // === PAGE BUTTON ===
-  prevBtn.addEventListener("click", () => {
+  /* ================= PAGINATION ================= */
+  prevBtn.onclick = () => {
     if (currentPage > 1) {
       currentPage--;
       renderCards();
     }
-  });
+  };
 
-  nextBtn.addEventListener("click", () => {
-    if (currentPage < Math.ceil(cards.length / cardsPerPage)) {
+  nextBtn.onclick = () => {
+    if (currentPage < Math.ceil(visibleCards.length / cardsPerPage)) {
       currentPage++;
       renderCards();
     }
+  };
+
+  /* ================= SEARCH ================= */
+  searchInput.addEventListener("input", () => {
+    const key = searchInput.value.toLowerCase();
+
+    visibleCards = cards.filter(c =>
+      c.title.toLowerCase().includes(key) ||
+      c.desc.toLowerCase().includes(key)
+    );
+
+    currentPage = 1;
+    renderCards();
   });
 
-  // === LOAD PERTAMA KALI ===
+  /* ================= FILTER ================= */
+  topicFilter.addEventListener("change", () => {
+  const value = topicFilter.value;
+
+  if (value === "all") {
+    visibleCards = [...cards];
+  } else {
+    visibleCards = cards.filter(card => card.topic === value);
+  }
+
+  currentPage = 1;
+  renderCards();
+});
+
+
+  /* ================= SHUFFLE ================= */
+  shuffleBtn.onclick = () => {
+    visibleCards = [...visibleCards].sort(() => Math.random() - 0.5);
+    currentPage = 1;
+    renderCards();
+  };
+
+  /* ================= RESET ================= */
+  resetBtn.onclick = () => {
+    searchInput.value = "";
+    topicFilter.value = "all";
+    visibleCards = [...cards];
+    currentPage = 1;
+    renderCards();
+  };
+
   renderCards();
 });
