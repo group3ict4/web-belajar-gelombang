@@ -744,7 +744,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-weight: 700;
+  font-weight: 900;
   letter-spacing: 0.3px;
 
   backface-visibility: hidden;
@@ -769,7 +769,7 @@ body {
   transform: rotateY(180deg);
   backface-visibility: hidden;
   border: 4b96a8;
-  box-shadow: 0 0 22px rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 22px rgba(66, 77, 82, 0.45);
 }
 
 /* ================= ISI BELAKANG ================= */

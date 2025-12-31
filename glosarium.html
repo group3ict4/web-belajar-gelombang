@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kartu Konsep - Gelombang & Bunyi (SMA)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="neon">
+
+  <div id="petunjukModal">
+  <div class="modal-content">
+    <h3>Petunjuk</h3>
+    <ul>
+      <li>Klik kartu untuk membalik.</li>
+      <li>Tekan 🔊 untuk suara + teks.</li>
+      <li>Gunakan navigasi halaman di bawah.</li>
+    </ul>
+<button id="tutupPetunjuk" class="close-btn">✕</button>
+  </div>
+  </div>
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="top-bar">
+      <input id="searchInput" type="text" placeholder="Cari kata kunci (mis. resonansi)">
+      <button id="helpBtn" class="filter-btn">Petunjuk</button>
+
+      <select id="topicFilter">
+        <option value="all">Semua Topik</option>
+        <option value="mekanik">Gelombang Mekanik</option>
+        <option value="bunyi">Gelombang Bunyi</option>
+        <option value="fisika">Konsep Umum</option>
+      </select>
+
+      <button id="shuffleBtn" class="filter-btn">Acak</button>
+      <button id="resetBtn" class="filter-btn">Reset</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container">
+    <section id="cardGrid" class="grid"></section>
+
+    <nav class="pager">
+      <button id="prevPage">‹ Sebelumnya</button>
+      <span id="pageInfo"></span>
+      <button id="nextPage">Berikut ›</button>
+    </nav>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <small>Disusun untuk pembelajaran SMA — ringkas & interaktif.</small>
+  </footer>
+
+  <script src="glosarium.js"></script>
+</body>
+</html>
